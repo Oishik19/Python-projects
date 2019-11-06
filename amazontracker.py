@@ -3,9 +3,11 @@ from bs4 import BeautifulSoup
 import smtplib
 import time
 
+#link of the product, modify it before running
 URL="https://www.amazon.in/Samsung-500GB-Portable-Solid-State/dp/B074WZJ4MF/ref=sr_1_3?keywords=ssd+external&qid=1573065104&s=computers&sr=1-3"
-headers = {
-    "User-Agent":'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36'}
+#uncomment the line below and enter the user agent of your browser
+#headers = {
+    "user agent'}
 def check_price():
     page= requests.get(URL, headers=headers)
 
@@ -19,6 +21,7 @@ def check_price():
     concise_title=title.strip()[0:37]
     print(concise_title)
 
+    #check the string slicing before you run the program, it's modified according to my needs.
     rounded_price=price[2:7]
     rounded_price=float(rounded_price.replace(",", ""))
     print(rounded_price)
@@ -32,16 +35,21 @@ def send_mail():
     server.starttls()
     server.ehlo()
 
-    server.login('oishikgoswami.10@gmail.com','dkvwggvdaczlxrxf')
+    #uncomment the line below and enter email and password
+    
+    #server.login('email','password')
 
     subject="price fell down"
+    
+    #enter the link from amazon
+    
     body='check the amazon link https://www.amazon.in/Samsung-500GB-Portable-Solid-State/dp/B074WZJ4MF/ref=sr_1_3?keywords=ssd+external&qid=1573065104&s=computers&sr=1-3'
 
     msg=f"Subject: {subject}\n\n{body}"
 
     server.sendmail(
-        'oishikgoswami.10@gmail.com',
-        'oishikgoswami.10@gmail.com',
+        'your email',
+        'receivers email',
         msg
     )
     print("email sent")
